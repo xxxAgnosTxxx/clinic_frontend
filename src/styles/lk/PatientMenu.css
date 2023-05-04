@@ -1,0 +1,10 @@
+#menu{
+    width: 9%;
+    margin-left: 10px;
+}
+
+.menuItem{
+    border: 1px rgb(0, 0, 0) solid;
+    padding: 1%;
+    background-color: rgb(173, 204, 173);
+}

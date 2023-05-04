@@ -1,0 +1,62 @@
+.lkContainerItems {
+    display: flex;
+    flex-direction: column;
+    margin-right: 5%;
+}
+
+.lkContainer{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+h3{
+    margin-bottom: 0%;
+    margin-top: 10px;
+}
+
+h4{
+    margin-top: 0%;
+    margin-bottom: 1%;
+}
+
+.lkbutton{
+    margin-top: 5%;
+    display: inline-block;
+    color: rgb(0, 0, 0);
+    padding: .3em;
+    outline: none;
+    border: 1;
+    border-color: #909090;
+    border-radius: 3px;
+    background: rgb(178, 223, 223);;
+    transition: 0.2s;
+    font-size: inherit;
+    margin-bottom: 2px;
+}
+
+.lkbutton:active, .lkbutton:hover{
+    background-color: aliceblue;
+}
+
+input:invalid {border-color: red;}
+
+.itemError{
+    color: red;
+    margin: 0;
+    text-align: left;
+}
+
+.savedAddress{
+    margin-bottom: 3%;
+}
+
+#callRegErr{
+    margin: 0;
+}
+
+#rcdesc{
+    resize:vertical;
+    height: 20%;
+}

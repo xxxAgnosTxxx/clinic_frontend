@@ -1,0 +1,22 @@
+#unregcall{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-left: 0.5%;
+}
+
+h4{
+    margin-bottom: 1%;
+    margin-top: 4%;
+    text-align: center;
+}
+
+#ucdesc{
+    resize:vertical;
+    height: 20%;
+    width: 85%;
+}
+
+#ucSucMsg{
+    color: green;
+}

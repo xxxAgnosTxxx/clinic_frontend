@@ -1,0 +1,22 @@
+.callCard{
+    border: 2px black solid;
+    background-color: rgb(229, 156, 156);
+    padding: 7px;
+    margin-bottom: 5%;
+}
+
+#callcontainer{
+    display: flex;
+    justify-content: baseline;
+    align-items: flex-start;
+    gap: 10%;
+}
+
+a{
+    text-decoration: none;
+    color: green;
+}
+
+a:hover{
+    color: red;
+}
