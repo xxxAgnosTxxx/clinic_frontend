@@ -3,3 +3,9 @@
     height: 800px;
     border: 3px red solid;
 }
+
+@media screen and (max-width: 1920px){
+    #map{
+        height: 700px;
+    }
+}

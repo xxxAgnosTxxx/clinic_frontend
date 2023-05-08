@@ -26,14 +26,14 @@ function UnregisteredCall(){
             <div id="unregFormCall">
                 <h3>Вызов без регистрации</h3>
                 <input type="text" className='regData' id="ucphone" required onInput={() => validNum("ucphone")} placeholder="Номер телефона"/>
-                <h4>Адрес места происшествия</h4>
+                <h4 className="uch4">Адрес места происшествия</h4>
                 <input type="text" className='regData' id="uccountry" value="Россия" disabled/>
                 <input type="text" className='regData' id="uccity" required onInput={() => validString("uccity")} placeholder="Город"/>
                 <input type="text" className='regData' id="ucstreet" required onInput={() => validString("ucstreet")} placeholder="Улица"/>
                 <input type="text" className='regData' id="uchome" required placeholder="Дом"/>
                 <input type="checkbox" id="isPrivatehouse" onClick={()=>changePrivateHouse()}/><label>Частный дом</label>
                 <input type="number" className='regData' id="ucflat" placeholder="Квартира" required/>
-                <h4>Описание случая</h4>
+                <h4 className="uch4">Описание случая</h4>
                 <textarea id="ucdesc" className='regData' required="required" placeholder="Возраст, симптомы"/>
                 <input type="button" className="regBtn" value="Вызывать скорую помощь" onClick={onClickCall}/>
                 <p className="errMsg" id="ucMessage"></p>

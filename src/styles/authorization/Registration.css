@@ -35,6 +35,21 @@
     margin-bottom: 2px;
   } 
 
+  @media screen and (max-width: 1920px){
+    #regBtn{
+      width: 16%;
+      margin-left: -3%;
+    }
+
+    .regData{
+      width: 75%;
+    }
+
+    #regBtn2{
+      width: 85%;
+    }
+  }
+
   .regBtn:hover, .regBtn:active { background: rgb(227, 250, 250) }
   
   #regBtn2 {

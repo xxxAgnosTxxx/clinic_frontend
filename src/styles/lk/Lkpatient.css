@@ -60,3 +60,9 @@ input:invalid {border-color: red;}
     resize:vertical;
     height: 20%;
 }
+
+@media screen and (max-width: 1920px) {
+    #rcdesc{
+        width: 90%;
+    }
+}

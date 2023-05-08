@@ -79,3 +79,18 @@ li {
   #errorMessage{
     margin: 0%;
   }
+
+  @media screen and (max-width:1920px) {
+    #signBtn{
+      width: 85%;
+    }
+
+    #signSelect{  
+      margin-left: -3%;
+      width: 16%;
+    }
+
+    #login,#pass{
+      width: 73%;
+    }
+  }

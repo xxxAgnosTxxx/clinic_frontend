@@ -8,3 +8,9 @@
     padding: 1%;
     background-color: rgb(173, 204, 173);
 }
+
+@media screen and (max-width: 1920px) {
+    #menu{
+        width: 12%;
+    }
+}
