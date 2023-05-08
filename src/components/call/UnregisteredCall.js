@@ -85,6 +85,5 @@ function changePrivateHouse(){
         document.getElementById("ucflat").hidden = false
     }
 }
-
 export default UnregisteredCall;
 export {callDao, proxyCall}
