@@ -35,7 +35,7 @@ function UnregisteredCall(){
                 <input type="number" className='regData' id="ucflat" placeholder="Квартира" required/>
                 <h4 className="uch4">Описание случая</h4>
                 <textarea id="ucdesc" className='regData' required="required" placeholder="Возраст, симптомы"/>
-                <input type="button" className="regBtn" value="Вызывать скорую помощь" onClick={onClickCall}/>
+                <input type="button" className="regBtn" id="ucBtn" value="Вызывать скорую помощь" onClick={onClickCall}/>
                 <p className="errMsg" id="ucMessage"></p>
                 <p className="errMsg" id="ucSucMsg" hidden>Вызов направлен в скорую</p>
             </div>

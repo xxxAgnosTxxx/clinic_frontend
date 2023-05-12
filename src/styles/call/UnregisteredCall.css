@@ -25,4 +25,16 @@ h4{
     .uch4{
         margin-left: -11%;
     }
+
+    #ucSucMsg{
+        margin-left: -15%;
+    }
+
+    #ucMessage{
+        margin-left: -15%;
+    }
+
+    #ucBtn{
+        width: 85%;
+    }
 }
