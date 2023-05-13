@@ -11,12 +11,3 @@
     align-items: flex-start;
     gap: 10%;
 }
-
-a{
-    text-decoration: none;
-    color: green;
-}
-
-a:hover{
-    color: red;
-}

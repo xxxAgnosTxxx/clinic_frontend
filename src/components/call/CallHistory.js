@@ -4,6 +4,7 @@ import PatientMenu from "../lk/PatientMenu";
 import { useEffect } from "react";
 import axios from "axios";
 import { callDao } from "./UnregisteredCall";
+import { reloadOnTimer } from "../basic/basicFunctions";
 
 const proxyCall = "http://localhost:10023/v1/patient/call/reg"
 
@@ -15,6 +16,7 @@ function CallHistory(){
 
   useEffect(() => {
     getCallCards(aToken)
+    reloadOnTimer()
   })
 
   return( 

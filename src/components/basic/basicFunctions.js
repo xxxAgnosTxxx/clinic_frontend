@@ -8,5 +8,8 @@ function validNum(proops){
     str.value = str.value.replace(/[A-Za-z]+/g,'');
   }
 
-  export {validNum}
-  export {validString}
+  function reloadOnTimer(){
+    setInterval(()=> window.location.reload(), 300000)
+  }
+
+  export {validString, reloadOnTimer, validNum}

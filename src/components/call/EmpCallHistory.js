@@ -4,6 +4,7 @@ import { EmployeeMenu } from "../lk/PatientMenu";
 import axios from "axios";
 import { changeCall, proxyCall } from "../map/Map";
 import { getDivCallCard } from "./CallHistory";
+import { reloadOnTimer } from "../basic/basicFunctions";
 
 var calls;
 
@@ -16,7 +17,8 @@ function EmpCallHistory(){
         if(useEffCheck==0){
             getCallCards(aToken)
             useEffCheck++
-        } 
+        }
+        reloadOnTimer()
     })
 
     return( 

@@ -5,6 +5,7 @@ import axios from "axios";
 import { callDao } from "../call/UnregisteredCall";
 import { getCallDaoToChange, getDivCallCard } from "../call/CallHistory";
 import { useEffect } from "react";
+import { reloadOnTimer } from "../basic/basicFunctions";
 
 const proxyCall = "http://localhost:10023/v1/employee/call"
 
@@ -30,6 +31,7 @@ function CustomMap(){
             });
             useEffectCheck++;
         }
+        reloadOnTimer()
     })
 
     return(

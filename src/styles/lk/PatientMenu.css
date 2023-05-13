@@ -6,7 +6,16 @@
 .menuItem{
     border: 1px rgb(0, 0, 0) solid;
     padding: 1%;
-    background-color: rgb(173, 204, 173);
+    background-color: rgb(151, 210, 212);
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+a:hover{
+    color: red;
 }
 
 @media screen and (max-width: 1920px) {
