@@ -85,7 +85,7 @@ function getDivCallCard(callDao){
 
   const labelAddress = document.createElement("label")
   labelAddress.innerHTML = "Адрес: "+callDao.country+", г. "+callDao.city+", ул. "+callDao.street+", д. "+callDao.house
-  if(callDao.flat!="") labelAddress.innerHTML+=", кв. "+callDao.flat
+  if(callDao.flat!=null) labelAddress.innerHTML+=", кв. "+callDao.flat
   divtmp.appendChild(labelAddress)
   divtmp.appendChild(br.cloneNode())
 

@@ -38,7 +38,7 @@ function Sign(){
     if(val=="employee"){
       login.placeholder = "Логин"
     }else if(val=="patient"){
-      login.placeholder = "Номер ИНН"
+      login.placeholder = "Полис"
     }
   }
 
