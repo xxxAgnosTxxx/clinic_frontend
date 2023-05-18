@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import '../../styles/lk/Lkpatient.css';
 import { validNum, validString } from "../basic/basicFunctions";
 import PatientMenu from './PatientMenu';
-import DataButton from '../buttons/changeDataButton';
+import DataButton, { ChangeAddressButton, DeleteAddressButton } from '../buttons/changeDataButton';
 import { callDao, proxyCall } from '../call/UnregisteredCall';
 
 
@@ -70,7 +70,8 @@ function LkPatient(){
             <label>Телефон</label><input required disabled={true} type="text" id='lkphone' onInput={() => validNum("lkphone")}/>
             <label>E-mail</label><input required disabled={true} type="email" id='lkmail'/>
             <label>Пароль</label><input required disabled={true} type='password' id='regpass'/>
-            <DataButton id="Bprofile"/>
+            <div><input type='checkbox' id="hop" onClick={()=>hideAndOpenPassword()}/><label>Показать пароль</label></div>
+            <DataButton value="Изменить данные" id="Bprofile"/>
             <DataSaveButton id="SaveBprofile" token={aToken}/>
           </div>
 
@@ -81,31 +82,36 @@ function LkPatient(){
               <div>
                 <div className='savedAddress'/>
                 <DeleteAddressButton id="Address0" token={aToken}/>
+                <ChangeAddressButton id="AddressC0" token={aToken}/>
               </div>
               <div>
                 <div className='savedAddress'/>
                 <DeleteAddressButton id="Address1" token={aToken}/>
+                <ChangeAddressButton id="AddressC1" token={aToken}/>
               </div>
               <div>
                 <div className='savedAddress'/>
                 <DeleteAddressButton id="Address2" token={aToken}/>
+                <ChangeAddressButton id="AddressC2" token={aToken}/>
               </div>
               <div>
                 <div className='savedAddress'/>
                 <DeleteAddressButton id="Address3" token={aToken}/>
+                <ChangeAddressButton id="AddressC3" token={aToken}/>
               </div>
               <div>
                 <div className='savedAddress'/>
                 <DeleteAddressButton id="Address4" token={aToken}/>
+                <ChangeAddressButton id="AddressC4" token={aToken}/>
               </div>
             </div>
-            <h3>Добавить адрес</h3>
+            <h3>Данные адреса</h3>
             <label>Страна</label><input required disabled={true} type="text" id='country' value="Россия"/>
             <label>Город</label><input required disabled={true} type="text" id='city' onInput={() => validString("city")}/>
             <label>Улица</label><input required disabled={true} type="text" id='street' onInput={() => validString("street")}/>
             <label>Дом</label><input required disabled={true} type="text" id='house'/>
             <label>Квартира</label><input placeholder='Не заполняется, если дом частный' disabled={true} type="number" id='room' onInput={() => validNum("room")}/>
-            <DataButton id="Baddress"/>
+            <DataButton value="Добавить адрес" id="Baddress"/>
             <DataSaveButton id="SaveBaddress" token={aToken}/>
           </div>
 
@@ -136,6 +142,14 @@ function LkPatient(){
           </div>
         </div>
       </div>)
+  }
+
+  function hideAndOpenPassword(){
+    if(document.getElementById("hop").checked){
+      document.getElementById('regpass').type="text"
+    }else{
+      document.getElementById('regpass').type="password"
+    }
   }
 
   function onClickRegCall(token){
@@ -220,21 +234,6 @@ function LkPatient(){
     address.flatNum = addressArray[4];
   }
 
-  function onClickDeleteAddress(proops){
-    const parent = document.getElementById(proops.id).parentNode;
-    const adr = parent.children[0].innerHTML;
-    separateAddress(adr)
-    axios.delete(proxyAddress, {
-      params:{
-        token:proops.token
-      },
-      data:address
-    })
-    .then(response => {
-      window.location.assign('http://localhost:3000/lkp?authToken='+response.data);
-    })
-  }
-
   function onBlurPolis(){
     var value = document.getElementById('lkpolis').value;
     if(value.length!=16){
@@ -255,10 +254,6 @@ function LkPatient(){
     else{
       document.getElementById('snilsError').hidden = true;
     }
-  }
-
-  function DeleteAddressButton(proops){
-    return(<input type='button' hidden={true} id={proops.id} value='Удалить' onClick={() => onClickDeleteAddress(proops)}></input>);
   }
 
   function DataSaveButton(proops){
@@ -389,6 +384,8 @@ function LkPatient(){
       child.children[0].innerHTML = data[i].country+addressSeparator+data[i].city+addressSeparator+data[i].street+addressSeparator+data[i].houseNum
       if(data[i].flatNum != null) child.children[0].innerHTML += addressSeparator+data[i].flatNum
       child.children[1].hidden = false
+      child.children[2].hidden = false
+      document.getElementById(child.children[2].id).style.marginLeft="5px"
       i++;
     }
 
@@ -408,3 +405,4 @@ function LkPatient(){
   }
 
   export default LkPatient;
+  export {separateAddress, proxyAddress, address}

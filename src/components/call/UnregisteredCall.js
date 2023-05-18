@@ -26,7 +26,7 @@ function UnregisteredCall(){
             <div id="unregFormCall">
                 <h3>Вызов без регистрации</h3>
                 <input type="text" className='regData' id="ucphone" required onInput={() => validNum("ucphone")} placeholder="Номер телефона"/>
-                <h4 className="uch4">Адрес места происшествия</h4>
+                <h4 className="uch4">Адрес</h4>
                 <input type="text" className='regData' id="uccountry" value="Россия" disabled/>
                 <input type="text" className='regData' id="uccity" required onInput={() => validString("uccity")} placeholder="Город"/>
                 <input type="text" className='regData' id="ucstreet" required onInput={() => validString("ucstreet")} placeholder="Улица"/>

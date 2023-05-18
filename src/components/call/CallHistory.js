@@ -100,7 +100,7 @@ function getDivCallCard(callDao){
   divtmp.appendChild(br.cloneNode())
 
   if(callDao.status == "Завершен")  divtmp.style.backgroundColor = "rgb(74, 164, 93)"
-  if(callDao.status == "Принят")  divtmp.style.backgroundColor = "rgb(127, 159, 247)"
+  if(callDao.status == "Принят" || callDao.status == "Подтвержден")  divtmp.style.backgroundColor = "rgb(127, 159, 247)"
   if(callDao.status == "Отменен")  divtmp.style.backgroundColor = "rgb(157, 157, 157)"
   if(callDao.status == "Госпитализирован")  divtmp.style.backgroundColor = "rgb(238, 235, 153)"
   if(callDao.status == "Создан" || callDao.status == "Требует подтверждения") divtmp.style.backgroundColor="orange"

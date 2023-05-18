@@ -12,18 +12,20 @@ function EmployeeMenu(proops){
     const lkeHref = 'http://localhost:3000/lke/map?authToken='+proops.token;
     const history = 'http://localhost:3000/lke/history?authToken='+proops.token;
     return(
-        <MenuContainer lkHref={lkeHref} historyHref={history}/>
-    )
+        <div id="menu">
+            <div className='menuItem'><a href={lkeHref}>Приёмная вызовов</a></div>
+            <div className='menuItem'><a href={history}>Управление вызовами</a></div>
+            <div className='menuItem'><a href='http://localhost:3000'>Выход</a></div>
+        </div>)
 }
 
 function MenuContainer(proops){
     return(
         <div id="menu">
-        <div className='menuItem'><a href={proops.lkHref}>Личный кабинет</a></div>
-        <div className='menuItem'><a href={proops.historyHref}>Управление вызовами</a></div>
-        <div className='menuItem'><a href='http://localhost:3000'>Выход</a></div>
-    </div>
-    )
+            <div className='menuItem'><a href={proops.lkHref}>Личный кабинет</a></div>
+            <div className='menuItem'><a href={proops.historyHref}>Управление вызовами</a></div>
+            <div className='menuItem'><a href='http://localhost:3000'>Выход</a></div>
+        </div>)
 }
 
 export default PatientMenu;
