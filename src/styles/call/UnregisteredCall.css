@@ -22,10 +22,6 @@ h4{
 }
 
 @media screen and (max-width: 1920px){
-    .uch4{
-        margin-left: -11%;
-    }
-
     #ucSucMsg{
         margin-left: -15%;
     }
@@ -35,10 +31,14 @@ h4{
     }
 
     #ucBtn{
-        width: 85%;
+        width: 215px;
     }
 
     #ucdesc{
         width: 75%;
+    }
+
+    #unregFormCall .regData{
+        width: 190px;
     }
 }

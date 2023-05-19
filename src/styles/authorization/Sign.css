@@ -82,15 +82,16 @@ li {
 
   @media screen and (max-width:1920px) {
     #signBtn{
-      width: 85%;
+      width: 210px;
+      margin-left: 5px;
     }
 
-    #signSelect{  
-      margin-left: -3%;
-      width: 16%;
+    #signSelect{
+      width: 220px;
     }
 
     #login,#pass{
-      width: 73%;
+      width: 190px;
     }
+
   }

@@ -8,7 +8,8 @@ const person = {
   patronymic:"",
   role:"",
   phone:"",
-  mail:""
+  mail:"",
+  sex:""
 }
 
 const proxyRegister = "http://localhost:10023/v1/authorization/register"
@@ -21,6 +22,11 @@ function Registration(){
         <input type="text" className='regData' id='surname' placeholder='Фамилия' />
         <input type="text" className='regData' id='iname' placeholder='Имя'/>
         <input type="text" className='regData' id='patron' placeholder='Отчество'/>
+        <div id='regSex'>
+          <h4>Пол</h4>
+          <input type='radio' id='regman' name='gender'/><label>Мужской</label>
+          <input type='radio' id='regwomen' name='gender'/><label>Женский</label>
+        </div>
         <input type="text" className='regData' id='phone' placeholder='Телефон'/>
         <input type="email" className='regData' id='mail' placeholder='Почта'></input>
         <input type="button" value="Зарегистрироваться" id='regBtn2' className='regBtn' hidden onClick={()=>regOnClick()}></input>
@@ -49,6 +55,7 @@ function regOnClick(){
 
 function hideRegButton2(){
   regBtn2.hidden = surname.value=="" || iname.value=="" || patron.value=="" || phone.value=="" || mail.value==""
+  || (!regman.checked && !regwomen.checked)
 }
 
 function regBtnOnClick(){
@@ -75,6 +82,12 @@ function RegistrationOnload() {
     hideRegButton2()
   }
   mail.oninput=function(){
+    hideRegButton2()
+  }
+  regman.oninput=function(){
+    hideRegButton2()
+  }
+  regwomen.oninput=function(){
     hideRegButton2()
   }
 }
