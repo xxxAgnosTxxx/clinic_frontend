@@ -37,14 +37,14 @@ h4{
 
 @media screen and (max-width: 1920px){
     #ucBtn{
-        width: 305px;
+        width: 275px;
     }
 
     #urh3{
-        width: 280px;
+        width: 273px;
     }
 
     #unregFormCall .regData{
-        width: 280px;
+        width: 250px;
     }
 }
