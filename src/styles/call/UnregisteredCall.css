@@ -27,14 +27,6 @@ h4{
 }
 
 @media screen and (max-width: 1920px){
-    #ucSucMsg{
-        margin-left: -15%;
-    }
-
-    #ucMessage{
-        margin-left: -15%;
-    }
-
     #ucBtn{
         width: 215px;
     }
