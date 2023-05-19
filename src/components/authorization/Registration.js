@@ -42,7 +42,12 @@ function regOnClick(){
   person.role = "patient";
   person.phone = document.getElementById("phone").value;
   person.mail = document.getElementById("mail").value;
-
+  if(document.getElementById("regwomen").checked){
+    person.sex = false
+  }else{
+    person.sex = true
+  }
+  console.log(person)
   axios.post(proxyRegister, person)
   .then(response => {
     document.getElementById("errorMessage1").textContent = "";

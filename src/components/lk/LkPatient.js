@@ -14,7 +14,8 @@ const person = {
   patronymic:"",
   role:"patient",
   phone:"",
-  mail:""
+  mail:"",
+  sex:""
 }
 
 const patient = {
@@ -63,6 +64,8 @@ function LkPatient(){
             <label>Имя</label><input required disabled={true} type="text" id='lkiname' onInput={() => validString("lkiname")}/>
             <label>Отчество</label><input required disabled={true} type="text" id='lkpatron' onInput={() => validString("lkpatron")}/>
             <label>Дата рождения</label><input required disabled={true} type="date" id='lkbirth'/>
+            <div id='genderContainer'>Пол: <input disabled={true} required type='radio' id='lkman' name='lkgender'/>Мужской
+            <input disabled={true} required type='radio' id='lkwoman' name='lkgender'/>Женский</div>
             <p id = 'polisError' className='itemError' hidden='true'>Номер полиса должен иметь 16 цифр</p>
             <label>Полис</label><input disabled={true} type="text" id='lkpolis' placeholder='0000000000000000' maxLength="16" onBlur={onBlurPolis} onInput={() => validNum("lkpolis")} required/>
             <p id = 'snilsError' className='itemError' hidden='true'>Номер СНИЛС должен иметь 11 цифр</p>
@@ -272,14 +275,14 @@ function LkPatient(){
     }
     //персональные данные
     if(idContainer=='profile'){
-      person.name = document.getElementById("lkiname").value,
-      person.surname = document.getElementById("lksurname").value,
-      person.patronymic = document.getElementById("lkpatron").value,
-      person.phone = document.getElementById("lkphone").value,
-      person.mail = document.getElementById("lkmail").value,
-
-      patient.snils = document.getElementById("lksnils").value,
-      patient.polis = document.getElementById("lkpolis").value,
+      person.name = document.getElementById("lkiname").value
+      person.surname = document.getElementById("lksurname").value
+      person.patronymic = document.getElementById("lkpatron").value
+      person.phone = document.getElementById("lkphone").value
+      person.mail = document.getElementById("lkmail").value
+      person.sex = document.getElementById("lkman").checked
+      patient.snils = document.getElementById("lksnils").value
+      patient.polis = document.getElementById("lkpolis").value
       patient.password = document.getElementById("regpass").value
       patient.birth = document.getElementById("lkbirth").value
       //отправка данных
@@ -349,6 +352,11 @@ function LkPatient(){
       document.getElementById("lksnils").value = data.snils
       document.getElementById("lkbirth").value = data.birth
       document.getElementById("regpass").value = data.password
+      if(data.person.sex){
+        document.getElementById("lkman").checked = true
+      }else{
+        document.getElementById("lkwoman").checked = true
+      }
       var hiddenFlag = true
       for(const child of document.getElementById('profile').children){
         if(child.tagName=="INPUT" && (child.value==null || child.value=='')){

@@ -10,6 +10,10 @@ function DataButton(proops){
       if(child.className!="lkbutton" && child.id!="country"){
         child.disabled = false;
       }
+      if(child.id=='genderContainer'){
+        child.children[0].disabled = false
+        child.children[1].disabled = false
+      }
     }
     document.getElementById("SaveB"+proops.id.slice(1)).hidden = false;
   }
