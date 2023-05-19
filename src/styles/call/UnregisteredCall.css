@@ -14,6 +14,7 @@ h4{
 #urh3{
     width: 220px;
     margin-bottom: 5px;
+    text-align: center;
 }
 
 #ucdesc{
@@ -26,12 +27,24 @@ h4{
     color: green;
 }
 
+#unregFormCall .regData{
+    width: 190px;
+}
+
+#ucBtn{
+    width: 220px;
+}
+
 @media screen and (max-width: 1920px){
     #ucBtn{
-        width: 215px;
+        width: 305px;
+    }
+
+    #urh3{
+        width: 280px;
     }
 
     #unregFormCall .regData{
-        width: 190px;
+        width: 280px;
     }
 }
