@@ -59,7 +59,7 @@ function LkPatient(){
           <PatientMenu token={aToken}/>
           <div id="profile" className='lkContainerItems'>
             <h2>Персональные данные</h2>
-            <p id="firstRegistration" className='errMsg' hidden="true">Необходимо заполнить все персональные данные при первичной регистрации</p>
+            <p id="firstRegistration" className='errMsg' hidden="true"></p>
             <label>Фамилия</label><input required disabled={true} type="text" id='lksurname' onInput={() => validString("lksurname")}/>
             <label>Имя</label><input required disabled={true} type="text" id='lkiname' onInput={() => validString("lkiname")}/>
             <label>Отчество</label><input required disabled={true} type="text" id='lkpatron' onInput={() => validString("lkpatron")}/>
@@ -80,7 +80,7 @@ function LkPatient(){
 
           <div id="address" className='lkContainerItems'>
             <h2>Сохраненные адреса</h2>
-            <p id="saveAddressError" className="itemError" hidden="true">Можно хранить не более 5 адресов</p>
+            <p id="saveAddressError" className="itemError" hidden="true"></p>
             <div id = "savedAddresses">
               <div>
                 <div className='savedAddress'/>
@@ -286,7 +286,8 @@ function LkPatient(){
       patient.password = document.getElementById("regpass").value
       patient.birth = document.getElementById("lkbirth").value
       //отправка данных
-      SendProfileData(proops.token);
+      SendData(proops.token, proxyProfile, patient);
+      if(document.getElementById("firstRegistration").innerText!=null) return
       //ввод полей ограничивается
       for(const child of document.getElementById(idContainer).children){
         if(child.className!="lkbutton"){
@@ -305,7 +306,7 @@ function LkPatient(){
       address.houseNum = document.getElementById("house").value
       address.flatNum = document.getElementById("room").value
       //отправка данных
-      SendAddressData(proops.token);
+      SendData(proops.token, proxyAddress, address);
       //ввод полей ограничивается
       for(const child of document.getElementById(idContainer).children){
         if(child.className!="lkbutton"){
@@ -316,21 +317,22 @@ function LkPatient(){
       document.getElementById(proops.id).hidden = true;
       document.getElementById(proops.id.slice(4)).hidden = false;
     }
-    window.location.reload()
   }
 
-  function SendProfileData(token){
-    axios.post(proxyProfile, patient, {
+  function SendData(token, url, dao){
+    axios.post(url, dao, {
       params:{
         token:token
       }
     })
-  }
-
-  function SendAddressData(token){
-    axios.post(proxyAddress, address, {
-      params:{
-        token:token
+    .then(response=>{
+      window.location.reload()
+    })
+    .catch(function(error){
+      if(dao.person!=null){
+        const errmsgData=document.getElementById("firstRegistration");
+        errmsgData.innerText = error.response.data;
+        errmsgData.hidden = false
       }
     })
   }
@@ -366,6 +368,7 @@ function LkPatient(){
       }
       for(const child of document.getElementById('profile').children){
         if(child.id=='firstRegistration'){
+          child.innerText = "Необходимо заполнить все персональные данные при первичной регистрации"
           child.hidden = hiddenFlag;
           break;
         }
@@ -398,6 +401,7 @@ function LkPatient(){
     }
 
     if(i>=5){
+      document.getElementById("saveAddressError").innerText = "Можно хранить не более 5 адресов"
       document.getElementById("saveAddressError").hidden = false;
       document.getElementById("Baddress").hidden = true;
     }
