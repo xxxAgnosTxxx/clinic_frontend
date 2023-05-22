@@ -15,7 +15,11 @@ const callDao = {
     patron:"",
     statistic:"",
     date:"",
-    status:""
+    status:"",
+    surnameEmp:"",
+    nameEmp:"",
+    patronEmp:"",
+    isPaid:""
 }
 
 const proxyCall = "http://localhost:10023/v1/patient/call"

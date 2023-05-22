@@ -75,10 +75,39 @@ function getCallCards(token){
                 finishbtn.value = "Завершить вызов"
                 divtmp.appendChild(finishbtn)
             }else{
+                var finishedCall = (calls[i].status == "Завершен" || calls[i].status == "Госпитализирован")
+                if(finishedCall){
+                    const labelPay = document.createElement("label")
+                    const br = document.createElement("br")
+                    if(finishedCall && calls[i].isPaid==false){
+                        labelPay.innerHTML = "Статус оплаты: ожидает оплаты"
+                        divtmp.appendChild(labelPay)
+                        divtmp.appendChild(br.cloneNode())
+
+                        const callDao =  calls[i]
+                        const payBtn = document.createElement("input")
+                        payBtn.type = "button"
+                        payBtn.onclick = ()=> setPayCall(token, callDao);
+                        payBtn.value = "Подтвердить оплату"
+                        divtmp.appendChild(payBtn);
+                        divtmp.appendChild(br.cloneNode())
+                    }else if(finishedCall && calls[i].isPaid){
+                        labelPay.innerHTML = "Статус оплаты: оплачен"
+                        divtmp.appendChild(labelPay)
+                        divtmp.appendChild(br.cloneNode())
+                    }
+                }
                 historyCallContainer.appendChild(divtmp)
             }
         }
     })
+  }
+
+  function setPayCall(token, dao){
+    axios.put(proxyCall+"/pay?token="+token, dao)
+      .then(response =>{
+        window.location.reload()
+      })
   }
 
 export default EmpCallHistory;
