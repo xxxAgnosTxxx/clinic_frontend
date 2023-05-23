@@ -11,3 +11,9 @@
     align-items: flex-start;
     gap: 10%;
 }
+
+#lkEmpHistoryContainer{
+    display: flex;
+    justify-content: stretch;
+    gap: 10%;
+}

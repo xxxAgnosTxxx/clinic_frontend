@@ -14,7 +14,7 @@ function EmployeeMenu(proops){
     return(
         <div id="menu">
             <div className='menuItem'><a href={lkeHref}>Приёмная вызовов</a></div>
-            <div className='menuItem'><a href={history}>Управление вызовами</a></div>
+            <div className='menuItem'><a href={history}>История вызовов</a></div>
             <div className='menuItem'><a href='http://localhost:3000'>Выход</a></div>
         </div>)
 }
@@ -23,7 +23,7 @@ function MenuContainer(proops){
     return(
         <div id="menu">
             <div className='menuItem'><a href={proops.lkHref}>Личный кабинет</a></div>
-            <div className='menuItem'><a href={proops.historyHref}>Управление вызовами</a></div>
+            <div className='menuItem'><a href={proops.historyHref}>История вызовов</a></div>
             <div className='menuItem'><a href='http://localhost:3000'>Выход</a></div>
         </div>)
 }

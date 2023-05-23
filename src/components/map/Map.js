@@ -26,8 +26,8 @@ function CustomMap(){
                     zoom: 12,
                     controls: ['zoomControl', 'geolocationControl', 'fullscreenControl', 'trafficControl']
                 })
-        
                 getAllActiveCalls(aToken)
+                getEmpActiveCalls(aToken)
             });
             useEffectCheck++;
         }
@@ -39,9 +39,13 @@ function CustomMap(){
             <h1>Вызовы</h1>
             <div className="lkContainer" token={aToken}>
                 <EmployeeMenu token={aToken}/>
-                <div className="lkContainerItems" id="map"></div>  
+                <div className="lkContainerItems" id="map"></div>
                 <div className="lkContainerItems">
-                    <p hidden></p>
+                    <h2>Принятые вызовы</h2>
+                    <div id="empActiveCallss"></div>
+                </div>
+                <div className="lkContainerItems">
+                    <h2>Активные вызовы</h2>
                     <div id="activeCallContainer"></div>
                 </div>
             </div> 
@@ -49,9 +53,50 @@ function CustomMap(){
     )
 }
 
+function getEmpActiveCalls(token){
+    axios.get(proxyCall+"/history/active",{
+        params:{
+          token:token
+        }
+      })
+      .then(response => {
+        const activeCallContainer = document.getElementById("empActiveCallss")
+        var calls = response.data
+        for(var i=0; i<calls.length;i++){
+            const divtmp = getDivCallCard(calls[i])
+            activeCallContainer.appendChild(divtmp)
+            //кнопки
+            const liebtn = document.createElement("input")
+            liebtn.type = "button"
+            liebtn.onclick = ()=>ChangeStatusByEmp(liebtn, "Ложный вызов", token)
+            liebtn.value = "Ложный вызов"
+            liebtn.style.marginRight = "1%"
+            divtmp.appendChild(liebtn)
+  
+            const hospitablebtn = document.createElement("input")
+            hospitablebtn.type = "button"
+            hospitablebtn.onclick = ()=>ChangeStatusByEmp(hospitablebtn, "Госпитализирован", token)
+            hospitablebtn.value = "Направить на госпитализацию"
+            hospitablebtn.style.marginRight = "1%"
+            divtmp.appendChild(hospitablebtn)
+  
+            const finishbtn = document.createElement("input")
+            finishbtn.type = "button"
+            finishbtn.onclick = ()=>ChangeStatusByEmp(finishbtn, "Завершен", token)
+            finishbtn.value = "Завершить вызов"
+            divtmp.appendChild(finishbtn)
+        }
+        markCalls(calls, "blue")
+    })
+}
+
+function ChangeStatusByEmp(finishbtn, status, token){
+    changeCall(finishbtn.parentNode, token, status)
+    window.location.assign('http://localhost:3000/lke/history?authToken='+token)
+}
+
 function ActiveCallCards(token){
     var container = document.getElementById("activeCallContainer")
-
     for(var i=0; i<activeCalls.length; i++){
         const divtmp = getDivCallCard(activeCalls[i])
 
@@ -64,7 +109,7 @@ function ActiveCallCards(token){
         const acceptbtn = document.createElement("input")
         acceptbtn.type = "button"
         acceptbtn.value = "Принять вызов"
-        acceptbtn.onclick = ()=>changeCall(acceptbtn.parentNode, token, "Принят")
+        acceptbtn.onclick = ()=> changeCall(acceptbtn.parentNode, token, "Принят")
         divtmp.appendChild(acceptbtn)
         container.appendChild(divtmp)
     }
@@ -74,9 +119,6 @@ function changeCall(parent, token, status){
     const calltmp = getCallDaoToChange(parent)
     calltmp.status=status
     axios.put(proxyCall+"/accept/?token="+token, calltmp)
-    .then(response=>{
-        window.location.assign('http://localhost:3000/lke/history?authToken='+response.data);
-    })
 }
 
 function getAllActiveCalls(token){
@@ -111,7 +153,7 @@ function getAllActiveCalls(token){
                 activeCalls.push(tmp)
             }
         
-            markCalls(activeCalls)
+            markCalls(activeCalls, "red")
             ActiveCallCards(token)
         }
     })
@@ -123,7 +165,7 @@ function getAddress(activeCall){
     return address
 }
 
-function markCalls(activeCalls){
+function markCalls(activeCalls, color){
     for(var i=0; i<activeCalls.length; i++){
         ymaps.geocode(getAddress(activeCalls[i]),{
             results:1
@@ -132,7 +174,7 @@ function markCalls(activeCalls){
             var coords = res.geoObjects.get(0).geometry.getCoordinates();
             var callMark = new ymaps.Placemark(coords, {
                 balloonContent: res.geoObjects.get(0).getAddressLine()}, {
-                preset: 'islands#redStretchyIcon'});
+                preset: 'islands#'+color+'StretchyIcon'});
             myMap.geoObjects.add(callMark);
         });
     }

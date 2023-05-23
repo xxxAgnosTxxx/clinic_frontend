@@ -24,12 +24,8 @@ function EmpCallHistory(){
     return( 
         <div>
             <h1>Управление вызовами</h1>
-            <div className="lkContainer">
+            <div className="lkContainer" id="lkEmpHistoryContainer">
                 <EmployeeMenu token={aToken}/>
-                <div className='lkContainerItems'>
-                    <h2>Активные вызовы</h2>
-                    <div id="empActiveCalls"></div>
-                </div>
                 <div className='lkContainerItems'>
                     <h2>История вызовов</h2>
                     <div id="empHistoryCalls"></div>
@@ -46,59 +42,34 @@ function getCallCards(token){
       }
     })
     .then(response => {
-        const activeCallContainer = document.getElementById("empActiveCalls")
         const historyCallContainer = document.getElementById("empHistoryCalls")
 
         calls = response.data
         for(var i=0; i<calls.length;i++){
             const divtmp = getDivCallCard(calls[i])
-            if(calls[i].status=="Принят"){
-                activeCallContainer.appendChild(divtmp)
-                //кнопки
-                const liebtn = document.createElement("input")
-                liebtn.type = "button"
-                liebtn.onclick = ()=>changeCall(liebtn.parentNode, token, "Ложный вызов")
-                liebtn.value = "Ложный вызов"
-                liebtn.style.marginRight = "1%"
-                divtmp.appendChild(liebtn)
+            var finishedCall = (calls[i].status == "Завершен" || calls[i].status == "Госпитализирован")
+            if(finishedCall){
+                const labelPay = document.createElement("label")
+                const br = document.createElement("br")
+                if(finishedCall && calls[i].isPaid==false){
+                    labelPay.innerHTML = "Статус оплаты: ожидает оплаты"
+                    divtmp.appendChild(labelPay)
+                    divtmp.appendChild(br.cloneNode())
 
-                const hospitablebtn = document.createElement("input")
-                hospitablebtn.type = "button"
-                hospitablebtn.onclick = ()=>changeCall(hospitablebtn.parentNode, token, "Госпитализирован")
-                hospitablebtn.value = "Направить на госпитализацию"
-                hospitablebtn.style.marginRight = "1%"
-                divtmp.appendChild(hospitablebtn)
-
-                const finishbtn = document.createElement("input")
-                finishbtn.type = "button"
-                finishbtn.onclick = ()=>changeCall(finishbtn.parentNode, token, "Завершен")
-                finishbtn.value = "Завершить вызов"
-                divtmp.appendChild(finishbtn)
-            }else{
-                var finishedCall = (calls[i].status == "Завершен" || calls[i].status == "Госпитализирован")
-                if(finishedCall){
-                    const labelPay = document.createElement("label")
-                    const br = document.createElement("br")
-                    if(finishedCall && calls[i].isPaid==false){
-                        labelPay.innerHTML = "Статус оплаты: ожидает оплаты"
-                        divtmp.appendChild(labelPay)
-                        divtmp.appendChild(br.cloneNode())
-
-                        const callDao =  calls[i]
-                        const payBtn = document.createElement("input")
-                        payBtn.type = "button"
-                        payBtn.onclick = ()=> setPayCall(token, callDao);
-                        payBtn.value = "Подтвердить оплату"
-                        divtmp.appendChild(payBtn);
-                        divtmp.appendChild(br.cloneNode())
-                    }else if(finishedCall && calls[i].isPaid){
-                        labelPay.innerHTML = "Статус оплаты: оплачен"
-                        divtmp.appendChild(labelPay)
-                        divtmp.appendChild(br.cloneNode())
-                    }
+                    const callDao =  calls[i]
+                    const payBtn = document.createElement("input")
+                    payBtn.type = "button"
+                    payBtn.onclick = ()=> setPayCall(token, callDao);
+                    payBtn.value = "Подтвердить оплату"
+                    divtmp.appendChild(payBtn);
+                    divtmp.appendChild(br.cloneNode())
+                }else if(finishedCall && calls[i].isPaid){
+                    labelPay.innerHTML = "Статус оплаты: оплачен"
+                    divtmp.appendChild(labelPay)
+                    divtmp.appendChild(br.cloneNode())
                 }
-                historyCallContainer.appendChild(divtmp)
             }
+            historyCallContainer.appendChild(divtmp)
         }
     })
   }
