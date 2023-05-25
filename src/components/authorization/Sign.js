@@ -12,13 +12,12 @@ const proxy = "http://localhost:10023/v1/authorization/signIn"
 function Sign(){
     return(
         <div id='signdiv'>
-          <select size="1" id='signSelect' onClick={hideInputFields} defaultValue={'default'}>
-            <option disabled value="default">Войти в систему</option>
+          <select size="1" id='signSelect' onClick={hideInputFields} defaultValue={'patient'}>
             <option id='empOption' value="employee">Вход для сотрудника</option>
             <option id='patOption' value="patient">Вход для пациента</option>
           </select>
-          <div id='signForm' hidden={true}>
-            <input type="text" id='login'></input>
+          <div id='signForm'>
+            <input type="text" id='login' placeholder = "Полис / Телефон"></input>
             <input type="password" id='pass' placeholder='Пароль'></input>
             <input type="button" value="Войти в личный кабинет" id='signBtn' hidden onClick={signOnClick}></input>
             <p className='errMsg' id = "errorMessage" hidden></p>
@@ -31,10 +30,8 @@ function Sign(){
   function hideInputFields(){
     let val = document.getElementById('signSelect').value;
     let login = document.getElementById('login');
-    if(val!="default"){
-      document.getElementById('signForm').hidden = false;
-      document.getElementById("regForm").hidden = val!="default";
-    }
+    document.getElementById("regForm").hidden = true;
+    document.getElementById("signForm").hidden = false
     if(val=="employee"){
       login.placeholder = "Логин"
     }else if(val=="patient"){
