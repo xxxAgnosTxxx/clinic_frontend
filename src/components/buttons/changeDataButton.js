@@ -1,5 +1,7 @@
 import axios from "axios";
-import { address, proxyAddress, separateAddress } from "../lk/LkPatient";
+import { separateAddress } from "../lk/LkPatient";
+import { proxyAddress } from "../basic/backendUrl";
+import { addressDao } from "../basic/dao";
 
 function DataButton(proops){
     return(<input id={proops.id} className="lkbutton" type="button" value={proops.value} onClick={() => DataButtonOnclick(proops)}/>)
@@ -29,7 +31,7 @@ function DataButton(proops){
       params:{
         token:proops.token
       },
-      data:address
+      data:addressDao
     })
     .then(response => {
       window.location.assign('http://localhost:3000/lkp?authToken='+response.data);
@@ -43,17 +45,17 @@ function DataButton(proops){
     const parent = document.getElementById(proops.id).parentNode;
     const adr = parent.children[0].innerHTML;
     separateAddress(adr)
-    document.getElementById('city').value=address.city
-    document.getElementById('street').value=address.street
-    document.getElementById('house').value=address.houseNum
-    document.getElementById('room').value=address.flatNum;
+    document.getElementById('city').value=addressDao.city
+    document.getElementById('street').value=addressDao.street
+    document.getElementById('house').value=addressDao.houseNum
+    document.getElementById('room').value=addressDao.flatNum;
     var newProps ={id:"Baddress"}
     DataButtonOnclick(newProps);
     axios.delete(proxyAddress, {
       params:{
         token:proops.token
       },
-      data:address
+      data:addressDao
     })
   }
 

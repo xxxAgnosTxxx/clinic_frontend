@@ -1,28 +1,8 @@
 import axios from "axios";
 import "../../styles/call/UnregisteredCall.css"
 import { validNum, validString } from "../basic/basicFunctions";
-
-const callDao = {
-    country:"",
-    city:"",
-    street:"",
-    house:"",
-    flat:"",
-    phone:"",
-    description:"",
-    surname:"",
-    name:"",
-    patron:"",
-    statistic:"",
-    date:"",
-    status:"",
-    surnameEmp:"",
-    nameEmp:"",
-    patronEmp:"",
-    isPaid:""
-}
-
-const proxyCall = "http://localhost:10023/v1/patient/call"
+import { proxyCallPatient } from "../basic/backendUrl";
+import { callDao } from "../basic/dao";
 
 function UnregisteredCall(){
     return(
@@ -70,7 +50,7 @@ function onClickCall(){
     callDao.phone = document.getElementById("ucphone").value
     callDao.description = document.getElementById("ucdesc").value
 
-    axios.post(proxyCall, callDao, {})
+    axios.post(proxyCallPatient, callDao, {})
     sucmsg.hidden = false
 
     document.getElementById("uccity").value=""
@@ -90,4 +70,3 @@ function changePrivateHouse(){
     }
 }
 export default UnregisteredCall;
-export {callDao, proxyCall}

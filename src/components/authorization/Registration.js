@@ -1,18 +1,8 @@
 import axios from 'axios';
 import '../../styles/authorization/Registration.css'
 import { validNum, validString } from "../basic/basicFunctions";
-
-const person = {
-  name:"",
-  surname:"",
-  patronymic:"",
-  role:"",
-  phone:"",
-  mail:"",
-  sex:""
-}
-
-const proxyRegister = "http://localhost:10023/v1/authorization/register"
+import { proxyRegister } from '../basic/backendUrl';
+import { personDao } from '../basic/dao';
 
 function Registration(){
   return(
@@ -36,19 +26,19 @@ function Registration(){
   }
 
 function regOnClick(){
-  person.surname = document.getElementById("surname").value;
-  person.name = document.getElementById("iname").value;
-  person.patronymic = document.getElementById("patron").value;
-  person.role = "patient";
-  person.phone = document.getElementById("phone").value;
-  person.mail = document.getElementById("mail").value;
+  personDao.surname = document.getElementById("surname").value;
+  personDao.name = document.getElementById("iname").value;
+  personDao.patronymic = document.getElementById("patron").value;
+  personDao.role = "patient";
+  personDao.phone = document.getElementById("phone").value;
+  personDao.mail = document.getElementById("mail").value;
   if(document.getElementById("regwomen").checked){
-    person.sex = false
+    personDao.sex = false
   }else{
-    person.sex = true
+    personDao.sex = true
   }
-  console.log(person)
-  axios.post(proxyRegister, person)
+  console.log(personDao)
+  axios.post(proxyRegister, personDao)
   .then(response => {
     document.getElementById("errorMessage1").textContent = "";
     window.location.assign('http://localhost:3000/lkp?authToken='+response.data);

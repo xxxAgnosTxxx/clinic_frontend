@@ -2,12 +2,11 @@ import { useSearchParams } from "react-router-dom";
 import "../../styles/map/Map.css"
 import { EmployeeMenu } from "../lk/PatientMenu";
 import axios from "axios";
-import { callDao } from "../call/UnregisteredCall";
+import { callDao } from "../basic/dao";
 import { getCallDaoToChange, getDivCallCard } from "../call/CallHistory";
 import { useEffect } from "react";
 import { reloadOnTimer } from "../basic/basicFunctions";
-
-const proxyCall = "http://localhost:10023/v1/employee/call"
+import { proxyCall, proxyCallAcceptCalls, proxyCallActiveCalls } from "../basic/backendUrl";
 
 var activeCalls = []
 
@@ -54,7 +53,7 @@ function CustomMap(){
 }
 
 function getEmpActiveCalls(token){
-    axios.get(proxyCall+"/history/active",{
+    axios.get(proxyCallActiveCalls,{
         params:{
           token:token
         }
@@ -118,7 +117,8 @@ function ActiveCallCards(token){
 function changeCall(parent, token, status){
     const calltmp = getCallDaoToChange(parent)
     calltmp.status=status
-    axios.put(proxyCall+"/accept/?token="+token, calltmp)
+    axios.put(proxyCallAcceptCalls+"?token="+token, calltmp)
+    window.location.reload()
 }
 
 function getAllActiveCalls(token){
@@ -181,4 +181,4 @@ function markCalls(activeCalls, color){
 }
 
 export default CustomMap;
-export {proxyCall, changeCall}
+export {changeCall}

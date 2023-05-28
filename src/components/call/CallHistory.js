@@ -3,10 +3,10 @@ import "../../styles/call/CallHistory.css"
 import PatientMenu from "../lk/PatientMenu";
 import { useEffect } from "react";
 import axios from "axios";
-import { callDao } from "./UnregisteredCall";
+import { callDao } from "../basic/dao";
 import { reloadOnTimer } from "../basic/basicFunctions";
-
-const proxyCall = "http://localhost:10023/v1/patient/call/reg"
+import { proxyCallPatientReg, proxyCallPatientRegCancel } from "../basic/backendUrl";
+import CallFilters from "./filter/CallFilter";
 
 var calls = [];
 
@@ -25,37 +25,40 @@ function CallHistory(){
       <div id="callcontainer">
         <PatientMenu token={aToken}/>
         <div id="callCardContainer"></div>
+        <CallFilters token={aToken}/>
       </div>
     </div>
     )
 }
 
 function getCallCards(token){
-  axios.get(proxyCall,{
+  axios.get(proxyCallPatientReg,{
     params:{
       token:token
     }
   })
   .then(response => {
     calls = response.data
-    const size = calls.length;
     const container = document.getElementById("callCardContainer")
     container.replaceChildren()
-
-    for(var i = 0; i<size; i++){
-      const divtmp = getDivCallCard(calls[i])
-            
-      if(calls[i].status == "Подтвержден" || calls[i].status == "Принят"){
-        const cancelbtn = document.createElement("input")
-        cancelbtn.type = "button"
-        cancelbtn.value = "Отменить"
-        cancelbtn.onclick = ()=>cancelCall(cancelbtn.parentNode, token)
-        divtmp.appendChild(cancelbtn)
-      }
-    
-      container.appendChild(divtmp)
-    }
+    patientCallHistoryEditor(token, calls, container)
   })
+}
+
+function patientCallHistoryEditor(token, calls, container){
+  for(var i = 0; i<calls.length; i++){
+    const divtmp = getDivCallCard(calls[i])
+          
+    if(calls[i].status == "Подтвержден" || calls[i].status == "Принят"){
+      const cancelbtn = document.createElement("input")
+      cancelbtn.type = "button"
+      cancelbtn.value = "Отменить"
+      cancelbtn.onclick = ()=>cancelCall(cancelbtn.parentNode, token)
+      divtmp.appendChild(cancelbtn)
+    }
+  
+    container.appendChild(divtmp)
+  }
 }
 
 function getDivCallCard(callDao){
@@ -109,7 +112,7 @@ function getDivCallCard(callDao){
 }
 
 function cancelCall(parent, token){
-  axios.post(proxyCall+"/cancel", getCallDaoToChange(parent), {
+  axios.post(proxyCallPatientRegCancel, getCallDaoToChange(parent), {
     params:{
       token:token
     }
@@ -128,4 +131,4 @@ function getCallDaoToChange(parent){
 }
 
 export default CallHistory;
-export {getDivCallCard, getCallDaoToChange}
+export {getDivCallCard, getCallDaoToChange, patientCallHistoryEditor}

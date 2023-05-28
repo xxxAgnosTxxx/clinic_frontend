@@ -1,13 +1,7 @@
 import axios from 'axios';
 import '../../styles/authorization/Sign.css';
-
-const loginDao = {
-  login:"",
-  password:"",
-  role:"",
-}
-
-const proxy = "http://localhost:10023/v1/authorization/signIn"
+import { proxySign } from '../basic/backendUrl';
+import { loginDao } from '../basic/dao';
 
 function Sign(){
     return(
@@ -44,7 +38,7 @@ function Sign(){
     loginDao.password = document.getElementById('pass').value;
     loginDao.role = document.getElementById('signSelect').value;
     
-    axios.post(proxy, loginDao)
+    axios.post(proxySign, loginDao)
     .then(response => {
       document.getElementById("errorMessage").hidden = true
       if(loginDao.role=="patient"){

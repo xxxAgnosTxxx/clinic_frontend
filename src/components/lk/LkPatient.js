@@ -5,43 +5,10 @@ import '../../styles/lk/Lkpatient.css';
 import { validNum, validString } from "../basic/basicFunctions";
 import PatientMenu from './PatientMenu';
 import DataButton, { ChangeAddressButton, DeleteAddressButton } from '../buttons/changeDataButton';
-import { callDao, proxyCall } from '../call/UnregisteredCall';
-
-
-const person = {
-  name:"",
-  surname:"",
-  patronymic:"",
-  role:"patient",
-  phone:"",
-  mail:"",
-  sex:""
-}
-
-const patient = {
-  person: person,
-  speciality: "",
-  position: "",
-  education: "",
-  login: "",
-  snils: "",
-  polis: "",
-  birth:"",
-  password: ""
-}
-
-const address = {
-  country : "",
-  city: "",
-  street:"",
-  houseNum:"",
-  flatNum:""
-}
+import { proxyAddress, proxyCallPatientReg, proxyProfile } from '../basic/backendUrl';
+import { callDao, patientDao, personDao } from '../basic/dao';
 
 const addressSeparator = ", "
-
-const proxyProfile = "http://localhost:10023/v1/patient/profile"
-const proxyAddress = "http://localhost:10023/v1/patient/address"
 
 function LkPatient(){
   const [params] = useSearchParams()
@@ -196,11 +163,11 @@ function LkPatient(){
 
     if(addressData.hidden){
       separateAddress(checkedAddress)
-      callDao.country = address.country
-      callDao.city = address.city
-      callDao.street = address.street
-      callDao.house = address.houseNum
-      callDao.flat = address.flatNum
+      callDao.country = addressDao.country
+      callDao.city = addressDao.city
+      callDao.street = addressDao.street
+      callDao.house = addressDao.houseNum
+      callDao.flat = addressDao.flatNum
     }else{
       callDao.country = document.getElementById("callcountry").value
       callDao.city = document.getElementById("callcity").value
@@ -211,7 +178,7 @@ function LkPatient(){
     callDao.description = description.value
     callDao.phone = document.getElementById("lkphone").value
     
-    axios.post(proxyCall+"/reg", callDao, {
+    axios.post(proxyCallPatientReg, callDao, {
       params:{
         token:token
       }
@@ -230,11 +197,11 @@ function LkPatient(){
 
   function separateAddress(propStr){
     const addressArray = propStr.split(addressSeparator)
-    address.country = addressArray[0];
-    address.city = addressArray[1];
-    address.street = addressArray[2];
-    address.houseNum = addressArray[3];
-    address.flatNum = addressArray[4];
+    addressDao.country = addressArray[0];
+    addressDao.city = addressArray[1];
+    addressDao.street = addressArray[2];
+    addressDao.houseNum = addressArray[3];
+    addressDao.flatNum = addressArray[4];
   }
 
   function onBlurPolis(){
@@ -275,18 +242,20 @@ function LkPatient(){
     }
     //персональные данные
     if(idContainer=='profile'){
-      person.name = document.getElementById("lkiname").value
-      person.surname = document.getElementById("lksurname").value
-      person.patronymic = document.getElementById("lkpatron").value
-      person.phone = document.getElementById("lkphone").value
-      person.mail = document.getElementById("lkmail").value
-      person.sex = document.getElementById("lkman").checked
-      patient.snils = document.getElementById("lksnils").value
-      patient.polis = document.getElementById("lkpolis").value
-      patient.password = document.getElementById("regpass").value
-      patient.birth = document.getElementById("lkbirth").value
+      personDao.name = document.getElementById("lkiname").value
+      personDao.surname = document.getElementById("lksurname").value
+      personDao.patronymic = document.getElementById("lkpatron").value
+      personDao.phone = document.getElementById("lkphone").value
+      personDao.mail = document.getElementById("lkmail").value
+      personDao.sex = document.getElementById("lkman").checked
+      personDao.role="patient";
+      patientDao.snils = document.getElementById("lksnils").value
+      patientDao.polis = document.getElementById("lkpolis").value
+      patientDao.password = document.getElementById("regpass").value
+      patientDao.birth = document.getElementById("lkbirth").value
+      patientDao.person = personDao;
       //отправка данных
-      SendData(proops.token, proxyProfile, patient);
+      SendData(proops.token, proxyProfile, patientDao);
       if(document.getElementById("firstRegistration").innerText!=null) return
       //ввод полей ограничивается
       for(const child of document.getElementById(idContainer).children){
@@ -300,13 +269,13 @@ function LkPatient(){
     }
     //адрес
     else if(idContainer){
-      address.country = document.getElementById("country").value,
-      address.city = document.getElementById("city").value,
-      address.street = document.getElementById("street").value
-      address.houseNum = document.getElementById("house").value
-      address.flatNum = document.getElementById("room").value
+      addressDao.country = document.getElementById("country").value,
+      addressDao.city = document.getElementById("city").value,
+      addressDao.street = document.getElementById("street").value
+      addressDao.houseNum = document.getElementById("house").value
+      addressDao.flatNum = document.getElementById("room").value
       //отправка данных
-      SendData(proops.token, proxyAddress, address);
+      SendData(proops.token, proxyAddress, addressDao);
       //ввод полей ограничивается
       for(const child of document.getElementById(idContainer).children){
         if(child.className!="lkbutton"){
@@ -417,4 +386,4 @@ function LkPatient(){
   }
 
   export default LkPatient;
-  export {separateAddress, proxyAddress, address}
+  export {separateAddress}
