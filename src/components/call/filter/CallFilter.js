@@ -21,7 +21,7 @@ function CallFilters(token){
     })
 
     return(
-        <div>
+        <div id="filtersCallHistory">
             <h2>Фильтр по вызовам</h2>
             <div>
                 <h3>Статус вызова</h3>
