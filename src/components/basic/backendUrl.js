@@ -14,7 +14,7 @@ const proxyProfile = proxyPatient+"/profile"
 const proxyAddress = proxyPatient+"/address"
 const proxyCallPatient = proxyPatient+"/call"
 const proxyCallPatientReg = proxyCallPatient+"/reg"
-const proxyCallPatientRegCancel = proxyCall+"/cancel"
+const proxyCallPatientRegCancel = proxyCallPatientReg+"/cancel"
 
 const proxyPerson = "http://"+server+":10023/v1/person"
 const proxyCallFilterPerson = proxyPerson + "/filter"
