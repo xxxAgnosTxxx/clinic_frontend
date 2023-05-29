@@ -6,7 +6,7 @@ import { validNum, validString } from "../basic/basicFunctions";
 import PatientMenu from './PatientMenu';
 import DataButton, { ChangeAddressButton, DeleteAddressButton } from '../buttons/changeDataButton';
 import { proxyAddress, proxyCallPatientReg, proxyProfile } from '../basic/backendUrl';
-import { callDao, patientDao, personDao } from '../basic/dao';
+import { addressDao, callDao, patientDao, personDao } from '../basic/dao';
 
 const addressSeparator = ", "
 
