@@ -5,7 +5,7 @@ import '../../styles/lk/Lkpatient.css';
 import { validNum, validString } from "../basic/basicFunctions";
 import PatientMenu from './PatientMenu';
 import DataButton, { ChangeAddressButton, DeleteAddressButton } from '../buttons/changeDataButton';
-import { proxyAddress, proxyCallPatientReg, proxyProfile } from '../basic/backendUrl';
+import { lkpHistory, proxyAddress, proxyCallPatientReg, proxyProfile } from '../basic/backendUrl';
 import { addressDao, callDao, patientDao, personDao } from '../basic/dao';
 
 const addressSeparator = ", "
@@ -183,7 +183,7 @@ function LkPatient(){
         token:token
       }
     }).then(response => {
-      window.location.assign('http://localhost:3000/lkp/history?authToken='+response.data);
+      window.location.assign(lkpHistory+'?authToken='+response.data);
     })
   }
 
