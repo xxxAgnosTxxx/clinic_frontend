@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { callDao } from "../basic/dao";
 import { reloadOnTimer } from "../basic/basicFunctions";
-import { proxyCallPatientReg, proxyCallPatientRegCancel } from "../basic/backendUrl";
+import { lkpHistory, proxyCallPatientReg, proxyCallPatientRegCancel } from "../basic/backendUrl";
 import CallFilters from "./filter/CallFilter";
 
 var calls = [];
@@ -118,7 +118,7 @@ function cancelCall(parent, token){
     }
   })
   .then(response => {
-    window.location.assign('http://localhost:3000/lkp/history?authToken='+response.data);
+    window.location.assign(lkpHistory+'?authToken='+response.data);
   })
 }
 

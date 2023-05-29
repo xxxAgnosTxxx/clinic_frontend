@@ -1,7 +1,7 @@
 import axios from 'axios';
 import '../../styles/authorization/Registration.css'
 import { validNum, validString } from "../basic/basicFunctions";
-import { proxyRegister } from '../basic/backendUrl';
+import { lkp, proxyRegister } from '../basic/backendUrl';
 import { personDao } from '../basic/dao';
 
 function Registration(){
@@ -41,7 +41,7 @@ function regOnClick(){
   axios.post(proxyRegister, personDao)
   .then(response => {
     document.getElementById("errorMessage1").textContent = "";
-    window.location.assign('http://localhost:3000/lkp?authToken='+response.data);
+    window.location.assign(lkp+'?authToken='+response.data);
   })
   .catch(error => {
     document.getElementById("errorMessage1").textContent = error.response.data;

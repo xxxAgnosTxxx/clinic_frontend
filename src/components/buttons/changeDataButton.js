@@ -1,6 +1,6 @@
 import axios from "axios";
 import { separateAddress } from "../lk/LkPatient";
-import { proxyAddress } from "../basic/backendUrl";
+import { lkp, proxyAddress } from "../basic/backendUrl";
 import { addressDao } from "../basic/dao";
 
 function DataButton(proops){
@@ -34,7 +34,7 @@ function DataButton(proops){
       data:addressDao
     })
     .then(response => {
-      window.location.assign('http://localhost:3000/lkp?authToken='+response.data);
+      window.location.assign(lkp+'?authToken='+response.data);
     })
   }
 

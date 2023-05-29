@@ -1,6 +1,6 @@
 import axios from 'axios';
 import '../../styles/authorization/Sign.css';
-import { proxySign } from '../basic/backendUrl';
+import { lkeMap, lkp, proxySign } from '../basic/backendUrl';
 import { loginDao } from '../basic/dao';
 
 function Sign(){
@@ -42,9 +42,9 @@ function Sign(){
     .then(response => {
       document.getElementById("errorMessage").hidden = true
       if(loginDao.role=="patient"){
-        window.location.assign('http://localhost:3000/lkp?authToken='+response.data)
+        window.location.assign(lkp+'?authToken='+response.data)
       }else{
-        window.location.assign('http://localhost:3000/lke/map?authToken='+response.data)
+        window.location.assign(lkeMap+'?authToken='+response.data)
       }
     })
     .catch(error => {

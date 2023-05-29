@@ -1,30 +1,33 @@
 import '../../styles/lk/PatientMenu.css'
+import { lkeHistory, lkeMap, lkp, lkpHistory, server } from '../basic/backendUrl';
 
 function PatientMenu(proops){
-    const lkpHref = 'http://localhost:3000/lkp?authToken='+proops.token;
-    const history = 'http://localhost:3000/lkp/history?authToken='+proops.token;
+    const lkpHref = lkp+'?authToken='+proops.token;
+    const history = lkpHistory+'?authToken='+proops.token;
     return(
         <MenuContainer lkHref={lkpHref} historyHref={history}/>
     )
 }
 
 function EmployeeMenu(proops){
-    const lkeHref = 'http://localhost:3000/lke/map?authToken='+proops.token;
-    const history = 'http://localhost:3000/lke/history?authToken='+proops.token;
+    const lkeHref = lkeMap+'?authToken='+proops.token;
+    const history = lkeHistory+'?authToken='+proops.token;
+    const mainHref = 'http://'+server+':3000'
     return(
         <div id="menu">
             <div className='menuItem'><a href={lkeHref}>Приёмная вызовов</a></div>
             <div className='menuItem'><a href={history}>История вызовов</a></div>
-            <div className='menuItem'><a href='http://localhost:3000'>Выход</a></div>
+            <div className='menuItem'><a href={mainHref}>Выход</a></div>
         </div>)
 }
 
 function MenuContainer(proops){
+    const mainHref = 'http://'+server+':3000'
     return(
         <div id="menu">
             <div className='menuItem'><a href={proops.lkHref}>Личный кабинет</a></div>
             <div className='menuItem'><a href={proops.historyHref}>История вызовов</a></div>
-            <div className='menuItem'><a href='http://localhost:3000'>Выход</a></div>
+            <div className='menuItem'><a href={mainHref}>Выход</a></div>
         </div>)
 }
 
