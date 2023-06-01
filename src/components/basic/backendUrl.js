@@ -1,4 +1,4 @@
-const server = "localhost"
+const server = "45.12.73.14"
 const proxyCall = "http://"+server+":10023/v1/employee/call";
 const proxyCallActiveCalls = proxyCall+"/history/active";
 const proxyCallAcceptCalls = proxyCall+"/accept";
