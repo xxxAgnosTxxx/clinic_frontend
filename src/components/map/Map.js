@@ -6,7 +6,7 @@ import { callDao } from "../basic/dao";
 import { getCallDaoToChange, getDivCallCard } from "../call/CallHistory";
 import { useEffect } from "react";
 import { reloadOnTimer } from "../basic/basicFunctions";
-import { proxyCall, proxyCallAcceptCalls, proxyCallActiveCalls } from "../basic/backendUrl";
+import { lkeHistory, proxyCall, proxyCallAcceptCalls, proxyCallActiveCalls } from "../basic/backendUrl";
 
 var activeCalls = []
 
@@ -91,7 +91,7 @@ function getEmpActiveCalls(token){
 
 function ChangeStatusByEmp(finishbtn, status, token){
     changeCall(finishbtn.parentNode, token, status)
-    window.location.assign('http://localhost:3000/lke/history?authToken='+token)
+    window.location.assign(lkeHistory+'?authToken='+token)
 }
 
 function ActiveCallCards(token){
