@@ -19,6 +19,7 @@ function Registration(){
         </div>
         <input type="text" className='regData' id='phone' placeholder='Телефон'/>
         <input type="email" className='regData' id='mail' placeholder='Почта'></input>
+        <div><input type="checkbox" id='opd'/><label>Согласие на обработку</label><br/><label>персональных данных</label></div>
         <input type="button" value="Зарегистрироваться" id='regBtn2' className='regBtn' hidden onClick={()=>regOnClick()}></input>
         <p className='errMsg' id = "errorMessage1"></p>
       </div>
@@ -49,7 +50,7 @@ function regOnClick(){
 }
 
 function hideRegButton2(){
-  regBtn2.hidden = surname.value=="" || iname.value=="" || patron.value=="" || phone.value=="" || mail.value==""
+  regBtn2.hidden = surname.value=="" || iname.value=="" || patron.value=="" || phone.value=="" || mail.value=="" || !opd.checked
   || (!regman.checked && !regwomen.checked)
 }
 
@@ -83,6 +84,9 @@ function RegistrationOnload() {
     hideRegButton2()
   }
   regwomen.oninput=function(){
+    hideRegButton2()
+  }
+  opd.oninput=function(){
     hideRegButton2()
   }
 }
